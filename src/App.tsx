@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const pal = ["pink","white"];
   const S = 5;
   const [cols, setCols] = useState(Array(S*S).fill(0));  
