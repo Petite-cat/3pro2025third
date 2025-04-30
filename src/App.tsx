@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
@@ -9,7 +7,7 @@ function App() {
   const S = 5;
   const [cols, setCols] = useState(Array(S*S).fill(0));  
 
-  function clickHandler(i){
+  function clickHandler(i:number){
     const newcols = cols.slice();
     newcols[i]=1-newcols[i];
     if (i-S >= 0){
@@ -29,7 +27,7 @@ function App() {
   }
 
 
-  function Cell({i}){
+  function Cell({i}:{i:number}){
     return(
       <>
         <rect width={100} height={100}
