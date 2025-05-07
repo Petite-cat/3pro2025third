@@ -7,6 +7,9 @@ function App() {
   const [cols, setCols] = useState(Array(S*S).fill(0));  
 
   function clickHandler(i:number){
+    if(completed()){
+      return;
+    }
     const newcols = cols.slice();
     newcols[i]=1-newcols[i];
     if (i-S >= 0){
@@ -25,19 +28,26 @@ function App() {
     setCols(()=>newcols);
   }
 
+  function completed(){
+    for(let i=0; i<5*5; i++){
+      if(cols[i] == 0){
+        return false;
+      }
+    }
+    return true;
+  }
 
   function Cell({i}:{i:number}){
+    const x = 100*(i%S)
+    const y = 100*Math.floor(i/S)
     return(
-      <>
+      <g onClick={()=>clickHandler(i)} transform={"translate("+x+","+y+")"}>
         <rect width={100} height={100}
-        x={100*(i%S)}  
-        y={100*Math.floor(i/S)}
         stroke="black" fill={pal[cols[i]]}
-        onClick={()=>clickHandler(i)}>      
+        >
         </rect>
-        <text fill="red" x={100*(i%S)+50} 
-        y={100*Math.floor(i/S)+50}>{i}</text>
-      </>
+        <text fill="red" x={50} y={50}>{i}</text>
+      </g>
     )
   }
 
@@ -55,10 +65,18 @@ function App() {
     )
   }
 
+  function Finished(){
+    if(completed()){
+      return (<h1>完成です。おめでとうございます。</h1>)
+    }else{
+      return (<h1>未完成です。頑張ってください。</h1>)
+    }
+  }
+
   return (
     <>
       <div>
-        <h1>My first react project</h1>
+        <Finished></Finished>
         <svg width={800} height={800}>
           <Board></Board>
         </svg>
